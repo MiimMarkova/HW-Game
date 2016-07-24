@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel = "stylesheet" type = "text/css" href = "assets/css/theGame.css">
+<link type = "text/javascript" href = "assets/js/theGame.js"> 
+</head>
+<body>
+	<div id = container>
+		<div id = "container-wrap">
+			<div id = "target">
+			<img src="assets/imgs/door.png" alt="door" />
+			</div>
+			<div class = "ball" id="1"><img src="assets/imgs/ball.png"></div>
+			<div class = "ball" id="2"><img src="assets/imgs/ball.png"></div>
+			<div class = "ball" id="3"><img src="assets/imgs/ball.png"></div>
+			<div  id = "player"><img src="assets/imgs/player-red.png" alt="You" />
+			</div>
+		</div>
+		<img src = '' id = 'end'>
+	</div>
+	<div id = "scoreBoard">
+	<p id = "score"> 0 - 0 | Attemps left: 100</p>
+	</div>
+	<script>
+	var target = {
+			dom: document.getElementById('target'),
+			left: 0,
+			tarLeft: false,
+			tarRight: false	
+	} 
+	var player = {
+			dom: document.getElementById('player'),
+			left: 0,
+			top: 600
+	}
+	var hit = 0;
+	var shots = 100;
+	var ball1 = document.getElementById('' + 1);
+	var ball2 = document.getElementById('' + 2);
+	var ball3 = document.getElementById('' + 3);
+	var goal = false;
+
+	function moveTarget() {
+		
+		if (target.left == 0) {
+			target.tarLeft = true;
+			target.tarRight = false;
+		}
+		if (target.left == 750) {
+			target.tarRight = true;
+			target.tarLeft = false;
+		}
+		if (target.tarLeft) {
+			target.dom.style.marginLeft = (target.left += 2) +'px';
+		}
+		if (target.tarRight) {
+			target.dom.style.marginLeft = (target.left -= 2) +'px';
+		}
+	}
+	
+	function moveRight() {
+		if (player.left >= 900) {
+			return;
+		}
+		player.dom.style.marginLeft = (player.left += 8) +'px';
+	}
+
+	function moveLeft() {
+		if (player.left <= 0) {
+			document.getElementById('end')
+			return;
+		}
+		player.dom.style.marginLeft = (player.left -= 8) + 'px';
+	}
+	
+	function shoot() {
+		shots--;
+		document.getElementById('score').innerHTML = hit + ' - 0 | Attemps left:' + shots;
+		if(ball1.style.display != "none") {
+			var ball = ball2;
+		} else if (ball2.style.display != "none") {
+			var ball = ball3;
+		}
+		
+		ball.style.display = "block";
+		ball.style.marginLeft = player.dom.style.marginLeft;
+		ball.style.animation = "shoot 1s linear forwards";
+		
+		ball.addEventListener('animationend', function () {
+			var ballPos = ball.style.marginLeft;
+			var targPos = target.dom.style.marginLeft;
+			if((ballPos >= targPos) && (ballPos >= targPos + 250)) {
+				goal = true;
+			}
+			ball.style.display = "none";
+		}, false);
+		
+			if (goal) {
+				hit++;
+				document.getElementById('score').innerHTML = hit + ' - 0 | Attemps left:' + shots;
+				goal = false;
+			}
+	}
+	
+	function gameLoop () {
+		if (hit == 70) {
+			document.getElementById('end').src = 'assets/imgs/win.png';
+        	return;
+        }
+		if (shots == 0) {
+			document.getElementById('end').src = 'assets/imgs/lose.png';
+			return;
+		}
+        moveTarget();
+        requestAnimationFrame(gameLoop);
+        
+    }
+	
+	 requestAnimationFrame(gameLoop);
+	document.addEventListener('keydown', function (e) {
+        if (e.keyCode == 39) {
+            moveRight();
+        }
+        if (e.keyCode == 37) {
+            moveLeft();
+        }
+        if (e.keyCode == 32) {
+        	shoot();
+        }
+	}, false);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+@CHARSET "UTF-8";
+body {
+	background-color: #006400;
+}
+#container img{
+	position: absolute;
+	display: block;
+	width: 90%;
+	margin: auto;
+}
+#container-wrap{
+	width: 1000px;
+	height: 800px;
+	border: 1px solid black;
+	margin: auto;
+	background-image: url('../imgs/field.jpg');
+	background-color: green;
+}
+@keyframes moveTarget {
+	0% {top: 0px; left: 0px;}
+	50% {top: 0px; left: 900px}
+	100% {top: 0px; left: 0px;}
+}
+@keyframes shoot {
+	0% {top: 580px}
+	100% {top: 10px}
+}
+#target {
+	position: relative;
+	width: 250px;
+	height: 100px;
+}
+.ball {
+	position: absolute;
+	display: none;
+	width: 50px;
+	height: 50px;
+	box-sizing: border-box;
+}
+.ball img {
+	width: 100%;
+	height:100%;
+}
+#player {
+	width: 100px;
+	height: 100px;
+	margin-top: 600px;
+	position: relative;
+}
+#player * {
+	position: relative;
+}
+#feet{
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	background-color: black;
+	border-radius: 10%;
+}
+#torso {
+	
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+.hands {
+	width: 25%;
+	height: 50%;
+	background-color: blue;
+	border-radius: 10%;
+	box-sizing: border-box;
+}
+#body {
+	width: 100%;
+	height: 70%;
+	background-color: blue;
+	border-radius: 10%;
+	box-sizing: border-box;
+	margin: 15% 0 0 0;
+}
+#head {
+	width: 60%;
+	height: 60%;
+	margin: auto auto;
+	background-color: grey;
+	border-radius: 50%;
+}
+#scoreBoard {
+	width: 1000px;
+	background-color: #1a1a1a;
+	color: red;
+	font-family: "Courier New", Courier, monospace;\
+	font-weight: bold;
+	text-align: center;
+	margin: auto;
+}
+#score {
+	font-size: 2em;
+}
